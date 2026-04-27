@@ -13,7 +13,6 @@ import aiohttp
 from config import *
 import logging
 # logging.basicConfig(level=logging.INFO)
-# Функция для выбора случайного приветственного сообщения
 states = []
 async def get_random_welcome_message(phone):
     async with aiohttp.ClientSession() as s:
@@ -33,13 +32,7 @@ async def check_client_status(channel_id, client):
 
 async def approve_and_welcome_users(client:Client, channelID):
         states.append(client.phone_number)
-    # """
-        # Одобряет заявки на вступление в канал и отправляет приветственные сообщения.
-        # """
-        # async with aiohttp.ClientSession() as s:
-        #     async with s.get(f"http://{HOST}/Accs") as r:
-        #         if r.status != 200:print("Ошибка при запросе, клиент отсутствует")
-        #         myAcc = random.choice(await r.json())
+
         async with client:        
                 
             [await client.get_chat(x.chat.id) async for x in client.get_dialogs() if x.chat.id == channelID]
@@ -112,4 +105,4 @@ async def handle_private_message(client: Client, message: Message):
 
 
 if __name__ == "__main__":
-    asyncio.run(main())  # Запуск asyncio.run только для основной функции
+    asyncio.run(main()) 
